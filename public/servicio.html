@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Servicio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/styles.css"> Archivo CSS externo -->
+</head>
+<style>
+    /* Custom styles for the form */
+    .botones {
+        margin-bottom: 10px;
+        text-align: right;
+    }
+
+</style>
+
+<body>
+    
+    <div class="botones">
+        <button id="mostrarFormularioBtn" class="btn btn-primary ">Registrar Servicio</button>
+        <button class="btn btn-warning" onclick="logout()">Cerrar Sesión</button>
+    </div>
+    <div id="tablaServiciosSolicitadosContainer">
+    <h2 class="mt-5">Servicios Solicitados</h2>
+    <table class="table table-striped" id="tablaServiciosSolicitados">
+        <thead>
+            <tr>
+                <th>Tipo de Servicio</th>
+                <th>Dirección</th>
+                <th>Fecha de Servicio</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Las filas de servicios solicitados se llenarán dinámicamente -->
+        </tbody>
+    </table>
+    </div> 
+    <div id="formularioSolicitudServicio" class="d-none">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h4>Registrar Solicitud de Servicio</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="solicitudForm">
+                                <div class="form-group">
+                                    <label for="direccion">Dirección del Servicio:</label>
+                                    <input type="text" class="form-control" id="direccion" name="direccion" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fecha">Fecha del Servicio:</label>
+                                    <input type="date" class="form-control" id="fecha" name="fecha" min="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tipoServicio">Tipo de Servicio:</label>
+                                    <select class="form-control" id="tipoServicio" name="tipoServicio" required>
+                                        <option value="">Seleccione un tipo de servicio</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Enviar Solicitud</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+        <script src="js/servicio.js"></script>
+</body>
+
+</html>
