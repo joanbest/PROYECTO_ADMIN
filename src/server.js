@@ -48,5 +48,12 @@ app.get('/servicio', (req, res) => {
     }
 });
 
+app.get('/api/auth/user-id', (req, res) => {
+    if (req.session.fk_id_persona) {
+        res.status(200).json({ fk_id_persona: req.session.fk_id_persona });
+    } else {
+        res.status(401).send('Usuario no autenticado');
+    }
+});
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));

@@ -3,6 +3,6 @@ const { obtenerServiciosAsignados } = require('../controllers/servicioAsignadoCo
 const router = express.Router();
 
 // Ruta para obtener los servicios asignados a un empleado
-router.get('/servicioAsignado/:id_empleado', obtenerServiciosAsignados);
+router.get('/servicio/:id_empleado', obtenerServiciosAsignados);
 
 module.exports = router;

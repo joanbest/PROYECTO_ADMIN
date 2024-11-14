@@ -23,7 +23,7 @@ const registrarServicio = async (req, res) => {
             .input('fk_id_persona', sql.Int, fk_id_persona)
             .input('fk_id_tipo_servicio', sql.Int, fk_id_tipo_servicio)
             .execute('sp_InsertarServicio');
-
+         
         res.status(201).send('Solicitud de servicio registrada exitosamente');
     } catch (error) {
         console.error('Error al registrar el servicio:', error);
@@ -42,22 +42,35 @@ const obtenerTiposServicio = async (req, res) => {
     }
 };
 
-const consultarServiciosSolicitados = async (req, res) => {
+const consultarServiciosSolicitados = async (req, res) => { 
     const { fk_id_persona } = req.params;
+
+    console.log('fk_id_persona recibido:', fk_id_persona); // Verificación
 
     try {
         const pool = await poolPromise;
+
         const result = await pool.request()
             .input('fk_id_persona', sql.Int, fk_id_persona)
             .query(`
-                select  nombre_tipo_servicio, direccion_servicio,fecha_servicio, estado_servicio from VistaServicios where fk_id_persona = @fk_id_persona;
+                SELECT nombre_tipo_servicio, direccion_servicio, fecha_servicio, estado_servicio 
+                FROM VistaServicios 
+                WHERE fk_id_persona = @fk_id_persona;
             `);
 
+        // Verifica si hay resultados en la consulta
+        if (result.recordset.length === 0) {
+            console.warn(`No se encontraron servicios para fk_id_persona = ${fk_id_persona}`);
+            return res.status(404).json({ message: 'No se encontraron servicios para el usuario especificado' });
+        }
+
+        // Devuelve los datos en formato JSON
         res.status(200).json(result.recordset);
     } catch (error) {
-        console.error('Error al consultar servicios solicitados:', error);
-        res.status(500).send('Error al consultar servicios solicitados');
+        console.error('Error al consultar servicios solicitados:', error.message); // Detalles del error
+        res.status(500).json({ error: 'Error al consultar servicios solicitados', details: error.message });
     }
 };
 
-module.exports = { obtenerTiposServicio, registrarServicio, consultarServiciosSolicitados };
+
+module.exports = { obtenerTiposServicio, consultarServiciosSolicitados,registrarServicio };

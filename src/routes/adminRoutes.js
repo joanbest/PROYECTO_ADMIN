@@ -9,7 +9,7 @@ router.get('/usuarios', obtenerUsuarios);           // Obtener todos los usuario
 router.get('/roles', obtenerRoles);                 // Obtener todos los roles
 router.post('/registrar', registrarUsuario);            // Registrar nuevo usuario
 router.put('/actualizar', actualizarUsuario);       // Actualizar usuario
-router.get('/usuarios/:id_persona', obtenerUsuario);// Obtener un usuario específico
+router.get('/usuario/:id_persona', obtenerUsuario);// Obtener un usuario específico
 router.delete('/usuarios/:id_persona', eliminarUsuario); 
 
 

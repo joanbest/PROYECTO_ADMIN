@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Servicio</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="css/styles.css"> Archivo CSS externo -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <style>
     /* Custom styles for the form */
@@ -14,65 +15,66 @@
         margin-bottom: 10px;
         text-align: right;
     }
-
 </style>
 
 <body>
-    
+
     <div class="botones">
-        <button id="mostrarFormularioBtn" class="btn btn-primary ">Registrar Servicio</button>
+        <!-- Botón para abrir el modal -->
+        <button type="button" id="abrirModalBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#solicitudModal">
+            Registrar Solicitud de Servicio
+        </button>
         <button class="btn btn-warning" onclick="logout()">Cerrar Sesión</button>
     </div>
-    <div id="tablaServiciosSolicitadosContainer">
-    <h2 class="mt-5">Servicios Solicitados</h2>
-    <table class="table table-striped" id="tablaServiciosSolicitados">
-        <thead>
-            <tr>
-                <th>Tipo de Servicio</th>
-                <th>Dirección</th>
-                <th>Fecha de Servicio</th>
-                <th>Estado</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Las filas de servicios solicitados se llenarán dinámicamente -->
-        </tbody>
-    </table>
-    </div> 
-    <div id="formularioSolicitudServicio" class="d-none">
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header text-center">
-                            <h4>Registrar Solicitud de Servicio</h4>
+
+    <div id="tablaServiciosSolicitados" class="container mt-5">
+        <h2 class="mt-5">Servicios Solicitados</h2>
+        <table class="table table-striped" id="tablaServiciosSolicitados">
+            <thead>
+                <tr>
+                    <th>Tipo de Servicio</th>
+                    <th>Dirección</th>
+                    <th>Fecha de Servicio</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Las filas de servicios solicitados se llenarán dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="solicitudModal" tabindex="-1" aria-labelledby="solicitudModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="solicitudModalLabel">Registrar Solicitud de Servicio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="solicitudForm">
+                        <div class="mb-3">
+                            <label for="direccion" class="form-label">Dirección del Servicio:</label>
+                            <input type="text" class="form-control" id="direccion" name="direccion" required>
                         </div>
-                        <div class="card-body">
-                            <form id="solicitudForm">
-                                <div class="form-group">
-                                    <label for="direccion">Dirección del Servicio:</label>
-                                    <input type="text" class="form-control" id="direccion" name="direccion" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="fecha">Fecha del Servicio:</label>
-                                    <input type="date" class="form-control" id="fecha" name="fecha" min="" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="tipoServicio">Tipo de Servicio:</label>
-                                    <select class="form-control" id="tipoServicio" name="tipoServicio" required>
-                                        <option value="">Seleccione un tipo de servicio</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-block">Enviar Solicitud</button>
-                            </form>
+                        <div class="mb-3">
+                            <label for="fecha" class="form-label">Fecha del Servicio:</label>
+                            <input type="date" class="form-control" id="fecha" name="fecha" min="" required>
                         </div>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tipoServicio" class="form-label">Tipo de Servicio:</label>
+                            <select class="form-control" id="tipoServicio" name="tipoServicio" required>
+                                <option value="">Seleccione un tipo de servicio</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Enviar Solicitud</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>    
-
-        <script src="js/servicio.js"></script>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/servicio.js"></script>
 </body>
 
 </html>

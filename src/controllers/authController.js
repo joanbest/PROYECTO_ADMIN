@@ -95,6 +95,8 @@ const loginUser = async (req, res) => {
         const permisos = result.recordset.map(row => row.nombre_permiso);
 
         // Guarda el usuario, rol y permisos en la sesión
+
+        req.session.fk_id_persona = user.id_persona;
         req.session.user = {
             id_persona: user.id_persona,
             username: user.nombre_usuario,

@@ -26,8 +26,7 @@ const obtenerUsuario = async (req, res) => {
         const result = await pool.request()
             .input('id_persona', sql.Int, id_persona)
             .query(`
-                SELECT id_persona, nombre_usuario, email_persona, fecha_nacimiento_persona, fk_rol
-                FROM Persona
+                SELECT * FROM VistaUsuarios
                 WHERE id_persona = @id_persona
             `);
         res.status(200).json(result.recordset[0]);
@@ -115,7 +114,7 @@ const obtenerRoles = async (req, res) => {
 
 
     const actualizarUsuario = async (req, res) => {
-        const { id_persona, nombre_usuario, email_persona, fecha_nacimiento_persona, fk_rol } = req.body;
+        const { id_persona, nombre_usuario, email_persona, fecha_nacimiento_persona, fk_rol,estadoTexto } = req.body;
         try {
             const pool = await poolPromise;
             // Inicia una transacción
@@ -128,9 +127,10 @@ const obtenerRoles = async (req, res) => {
                 .input('email_persona', sql.NVarChar, email_persona)
                 .input('fecha_nacimiento_persona', sql.Date, fecha_nacimiento_persona)
                 .input('fk_rol', sql.Int, fk_rol)
+                .input('estado_persona', sql.NVarChar, estadoTexto)
                 .execute('sp_ActualizarDatosUsuario');
             await transaction.commit();
-            res.status(201).send('Usuario registrado exitosamente');
+            res.status(201).send('Usuario actualizado exitosamente');
         } catch (error) {
             await transaction.rollback(); // Reversión en caso de error en la transacción
             throw error;

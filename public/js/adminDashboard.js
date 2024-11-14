@@ -18,6 +18,7 @@ async function cargarUsuarios() {
                 <td>${usuario.email_persona}</td>
                 <td>${usuario.fecha_nacimiento_persona}</td>
                 <td>${usuario.rol}</td>
+                <td>${usuario.estado_persona}</td>
                 <td>
                     <button class="btn btn-sm btn-info" onclick="abrirModalActualizar(${usuario.id_persona})">Editar</button>
                     <button class="btn btn-sm btn-danger" onclick="abrirModalEliminar(${usuario.id_persona})">Eliminar</button>
@@ -102,6 +103,18 @@ document.getElementById('crearUsuarioForm').addEventListener('submit', async fun
     }
 });
 
+function obtenerNombreEstado(id) {
+    switch (id) {
+        case 1:
+            return 'Activo';
+        case 2:
+            return 'Inactivo';
+        case 3:
+            return 'Ocupado';
+        default:
+            return 'Estado no válido';
+    }
+}
 
 
 document.getElementById('actualizarUsuarioForm').addEventListener('submit', async function (event) {
@@ -112,12 +125,14 @@ document.getElementById('actualizarUsuarioForm').addEventListener('submit', asyn
     const email_persona = document.getElementById('email_persona_actualizar').value;
     const fecha_nacimiento_persona = document.getElementById('fecha_nacimiento_persona_actualizar').value;
     const fk_rol = document.getElementById('rol_id_actualizar').value;
-
+    const estado_persona = document.getElementById('estado_persona_actualizar').value;
+ 
+    const estadoTexto = obtenerNombreEstado(parseInt(estado_persona));
     try {
         const response = await fetch('/api/admin/actualizar', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id_persona, nombre_usuario, email_persona, fecha_nacimiento_persona, fk_rol })
+            body: JSON.stringify({ id_persona, nombre_usuario, email_persona, fecha_nacimiento_persona, fk_rol,estadoTexto })
         });
         
         if (response.ok) {
@@ -151,7 +166,7 @@ document.getElementById('confirmarEliminarBtn').addEventListener('click', async 
 });
 async function abrirModalActualizar(id_persona) {
     try {
-        const response = await fetch(`/api/admin/usuarios/${id_persona}`);
+        const response = await fetch(`/api/admin/usuario/${id_persona}`);
         const usuario = await response.json();
 
         // Rellenar el modal de actualización con los datos del usuario
@@ -160,6 +175,7 @@ async function abrirModalActualizar(id_persona) {
         document.getElementById('email_persona_actualizar').value = usuario.email_persona;
         document.getElementById('fecha_nacimiento_persona_actualizar').value = usuario.fecha_nacimiento_persona;
         document.getElementById('rol_id_actualizar').value = usuario.fk_rol;
+        document.getElementById('estado_persona_actualizar').value = usuario.estado_persona;
 
         // Mostrar el modal
         const modal = new bootstrap.Modal(document.getElementById('actualizarUsuarioModal'));

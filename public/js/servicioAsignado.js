@@ -1,11 +1,11 @@
 
         // ID del empleado en sesión, reemplaza con el ID del empleado autenticado
-        const empleadoId = 1; // Ejemplo
+        const empleadoId = req.session.user.id_persona; // Ejemplo
 
         // Función para cargar los servicios asignados desde el backend
         async function cargarServiciosAsignados(id_empleado) {
             try {
-                const response = await fetch(`/api/servicios/servicios-asignados/${id_empleado}`);
+                const response = await fetch(`/api/servicioAsignado/servicio/${id_empleado}`);
                 const serviciosAsignados = await response.json();
 
                 const tbody = document.querySelector('#tablaServiciosAsignados tbody');
